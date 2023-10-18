@@ -27,7 +27,7 @@ const NewApplication = () => {
   // }, []);
 
   const onFormValueChange = (setValue, formData, formState) => {
-    //console.log("##############");
+    
     console.log("data",formData, setValue, setSubmitValve, tenants ) ; // to check in console
     setSubmitValve(!Object.keys(formState.errors).length);
     // if (Object.keys(formState.errors).length === 1 && formState.errors?.units?.message === "arv") {
@@ -36,14 +36,14 @@ const NewApplication = () => {
     /*if (formData?.ownershipCategory?.code?.includes("MULTIPLEOWNERS") && formData?.owners?.length < 2) {
       setSubmitValve(false);
     }*/
-    let pincode = formData?.address?.pincode;
-    if (pincode) {
-      if (!Digit.Utils.getPattern("Pincode").test(pincode)) setSubmitValve(false);
-      const foundValue = tenants?.find((obj) => obj.pincode?.find((item) => item.toString() === pincode));
-      if (!foundValue) {
-        setSubmitValve(false);
-      }
-    }
+    // let pincode = formData?.address?.pincode;
+    // if (pincode) {
+    //   if (!Digit.Utils.getPattern("Pincode").test(pincode)) setSubmitValve(false);
+    //   const foundValue = tenants?.find((obj) => obj.pincode?.find((item) => item.toString() === pincode));
+    //   if (!foundValue) {
+    //     setSubmitValve(false);
+    //   }
+    // }
   };
 
   const onSubmit = (data) => {
@@ -53,11 +53,11 @@ const NewApplication = () => {
 
     const formData = {
       tenantId,
-      address: {
-        ...data?.address,
-        city: data?.address?.city?.name,
-        locality: { code: data?.address?.locality?.code, area: data?.address?.locality?.area },
-      },
+      // address: {
+      //   ...data?.address,
+      //   city: data?.address?.city?.name,
+      //   locality: { code: data?.address?.locality?.code, area: data?.address?.locality?.area },
+      // },
       // usageCategory: data?.usageCategoryMajor.code,
       // usageCategoryMajor: data?.usageCategoryMajor?.code.split(".")[0],
       // usageCategoryMinor: data?.usageCategoryMajor?.code.split(".")[1] || null,
@@ -89,9 +89,10 @@ const NewApplication = () => {
         } = owner;
         let __owner;
 
-        if (!data?.ownershipCategory?.code.includes("INDIVIDUAL")) {
-          __owner = { name, mobileNumber, emailId, adharNumber , fatherOrHusbandName /*ownerType**/ };
-        } else {
+        // if (!data?.ownershipCategory?.code.includes("INDIVIDUAL")) {
+        //   __owner = { name, mobileNumber, emailId, adharNumber , fatherOrHusbandName /*ownerType**/ };
+        // } else {
+          
           __owner = {
             name,
             mobileNumber,
@@ -102,8 +103,8 @@ const NewApplication = () => {
             emailId,    
                                   
           };
-        }
-
+        
+        //}
         //if (!__owner?.correspondenceAddress) __owner.correspondenceAddress = "";
 
         // const _owner = {
@@ -137,9 +138,7 @@ const NewApplication = () => {
         } = pets;
         let __pets;
 
-        if (!data?.ownershipCategory?.code.includes("INDIVIDUAL")) {
-          __pets = { doctorName,datee,age,pettype,breedType,clinicName, petname, sex,ownerType };
-        } else {
+        
           __pets = {
             
           doctorName,
@@ -153,7 +152,41 @@ const NewApplication = () => {
           sex,     
                                   
           };
-        }
+       
+      }),
+
+      address: data?.address.map((pata) => {
+        let {
+          houseNo,
+          houseName,
+          houseType,
+          addressLinefirst,
+          addressLinesecond,
+          streetName,
+          landmark,
+          locality,
+          cityName,
+          pincode,      
+
+        } = pata;
+        let __pata;
+
+        
+          __pata = {
+            
+            houseNo,
+            houseName,
+            houseType,
+            addressLinefirst,
+            addressLinesecond,
+            streetName,
+            landmark,
+            locality,
+            cityName,
+            pincode,   
+                                  
+          };
+      
       }),
       
 
