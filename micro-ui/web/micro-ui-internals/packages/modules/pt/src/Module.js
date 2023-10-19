@@ -59,6 +59,7 @@ import MutateProperty from "./pages/citizen/Mutate";
 import PTROwnerDetails from "./pageComponents/PTROwnerDetails";
 import PTRPetdetails from "./pageComponents/PTRPetdetails";
 import PTRSelectAddress from "./pageComponents/PTRSelectAddress";
+import PTRDocumentUpload from "./pageComponents/PTRDocumentUpload";
 
 import SearchPTIDProp from "./components/search/SearchDefaulter";
 import PropertyInformation from "./pages/citizen/MyProperties/propertyInformation";
@@ -185,9 +186,10 @@ const componentsToRegister = {
   PTSelectLandmark,
   SearchPTIDProp,
 
-  PTRPetdetails,
+ PTRPetdetails,
  PTRSelectAddress,
-  PTROwnerDetails
+ PTROwnerDetails,
+ PTRDocumentUpload
 };
 
 const addComponentsToRegistry = () => {

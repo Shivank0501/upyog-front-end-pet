@@ -11,12 +11,7 @@ const createOwnerDetails = () => ({
   mobileNumber: "",
   fatherOrHusbandName: "",
   emailId: "",
- 
-  //permanentAddress: "",
-  
-  //ownerType: "",
   gender: "",
-  //isCorrespondenceAddress: false,
   key: Date.now(),
 });
 
@@ -24,22 +19,22 @@ const PTROwnerDetails = ({ config, onSelect, userType, formData, setError, formS
   const { t } = useTranslation();
 
   const { pathname } = useLocation();
-  const isEditScreen = pathname.includes("/modify-application/" ) 
+  //const isEditScreen = pathname.includes("/modify-application/" ) 
   const [owners, setOwners] = useState(formData?.owners || [createOwnerDetails()]);
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
 
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const stateId = Digit.ULBService.getStateId();
-  const { data: mdmsData, isLoading } = Digit.Hooks.pt.usePropertyMDMS(stateId, "PropertyTax", [
-    // "UsageCategory",
-    // "OccupancyType",
-    // "Floor",
-    "OwnerType",
-    // "OwnerShipCategory",
-    // "Documents",
-    // "SubOwnerShipCategory",
-    // "OwnerShipCategory",
-  ]);
+  // const { data: mdmsData, isLoading } = Digit.Hooks.pt.usePropertyMDMS(stateId, "PropertyTax", [
+  //   // "UsageCategory",
+  //   // "OccupancyType",
+  //   // "Floor",
+  //   "OwnerType",
+  //   // "OwnerShipCategory",
+  //   // "Documents",
+  //   // "SubOwnerShipCategory",
+  //   // "OwnerShipCategory",
+  // ]);
 
   const { data: Menu } = Digit.Hooks.pt.usePTGenderMDMS(stateId, "common-masters", "GenderType");
 
@@ -77,13 +72,13 @@ const PTROwnerDetails = ({ config, onSelect, userType, formData, setError, formS
     formData,
     formState,
     setOwners,
-    mdmsData,
+    //mdmsData,
     t,
     setError,
     clearErrors,
     config,
     menu,
-    isEditScreen,
+    //isEditScreen,
   };
 
   // if (isEditScreen) {
@@ -110,66 +105,67 @@ const OwnerForm = (_props) => {
     //removeOwner,
     setOwners,
     t,
-    mdmsData,
+    //mdmsData,
     formData,
     config,
     setError,
     clearErrors,
     formState,
     menu,
-    isEditScreen,
+    //isEditScreen,
   } = _props;
-  const { originalData = {} } = formData;
-  const { institution = {} } = originalData;
-const [uuid, setUuid]= useState(null)
+  // const { originalData = {} } = formData;
+  // const { institution = {} } = originalData;
+//const [uuid, setUuid]= useState(null)
 const [showToast, setShowToast] = useState(null);
   const { control, formState: localFormState, watch, setError: setLocalError, clearErrors: clearLocalErrors, setValue, trigger } = useForm();
   const formValue = watch();
   const { errors } = localFormState;
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  owner["institution"] = { name: owner?.institution?.name ? formValue?.institution?.name : institution?.name };
-  owner["institution"].type = {
-    active: true,
-    code: formValue?.institution?.type?.code || institution?.type?.code,
-    i18nKey: `COMMON_MASTERS_OWNERSHIPCATEGORY_${stringReplaceAll(formValue?.institution?.type?.code || institution?.type || "")}`,
-    name: t(`COMMON_MASTERS_OWNERSHIPCATEGORY_${stringReplaceAll(formValue?.institution?.type?.code || institution?.type || "")}`),
-  };
-  owner.designation = owner?.designation ? formValue?.designation : institution?.designation;
-  const specialDocsMenu = useMemo(
-    () =>
-      mdmsData?.PropertyTax?.Documents?.filter((e) => e.code === "OWNER.SPECIALCATEGORYPROOF")?.[0]
-        .dropdownData?.filter((e) => e.parentValue.includes(formValue?.ownerType?.code))
-        .map?.((e) => ({
-          i18nKey: e.code?.replaceAll(".", "_"),
-          code: e.code,
-        })) || [],
-    [mdmsData, formValue]
-  );
 
-  const ownerTypesMenu = useMemo(
-    () =>
-      mdmsData?.PropertyTax?.OwnerType?.map?.((e) => ({
-        i18nKey: `${e.code.replaceAll("PROPERTY", "COMMON_MASTERS").replaceAll(".", "_")}`,
-        code: e.code,
-      })) || [],
-    [mdmsData]
-  );
+  //owner["institution"] = { name: owner?.institution?.name ? formValue?.institution?.name : institution?.name };
+  // owner["institution"].type = {
+  //   active: true,
+  //   code: formValue?.institution?.type?.code || institution?.type?.code,
+  //   i18nKey: `COMMON_MASTERS_OWNERSHIPCATEGORY_${stringReplaceAll(formValue?.institution?.type?.code || institution?.type || "")}`,
+  //   name: t(`COMMON_MASTERS_OWNERSHIPCATEGORY_${stringReplaceAll(formValue?.institution?.type?.code || institution?.type || "")}`),
+  // };
+  //owner.designation = owner?.designation ? formValue?.designation : institution?.designation;
+  // const specialDocsMenu = useMemo(
+  //   () =>
+  //     mdmsData?.PropertyTax?.Documents?.filter((e) => e.code === "OWNER.SPECIALCATEGORYPROOF")?.[0]
+  //       .dropdownData?.filter((e) => e.parentValue.includes(formValue?.ownerType?.code))
+  //       .map?.((e) => ({
+  //         i18nKey: e.code?.replaceAll(".", "_"),
+  //         code: e.code,
+  //       })) || [],
+  //   [mdmsData, formValue]
+  // );
 
-  if (ownerTypesMenu?.length > 0) {
-    ownerTypesMenu ? ownerTypesMenu.sort((a, b) => a.code.localeCompare(b.code)) : "";
-    ownerTypesMenu?.forEach((data, index) => {
-      if (data.code == "NONE") data.order = 0
-      else data.order = index + 1
-    });
-    ownerTypesMenu.sort(function (a, b) { return a.order - b.order; });
-  }
+  // const ownerTypesMenu = useMemo(
+  //   () =>
+  //     mdmsData?.PropertyTax?.OwnerType?.map?.((e) => ({
+  //       i18nKey: `${e.code.replaceAll("PROPERTY", "COMMON_MASTERS").replaceAll(".", "_")}`,
+  //       code: e.code,
+  //     })) || [],
+  //   [mdmsData]
+  // );
+
+  // if (ownerTypesMenu?.length > 0) {
+  //   ownerTypesMenu ? ownerTypesMenu.sort((a, b) => a.code.localeCompare(b.code)) : "";
+  //   ownerTypesMenu?.forEach((data, index) => {
+  //     if (data.code == "NONE") data.order = 0
+  //     else data.order = index + 1
+  //   });
+  //   ownerTypesMenu.sort(function (a, b) { return a.order - b.order; });
+  // }
   const isIndividualTypeOwner = useMemo(() => formData?.ownershipCategory?.code.includes("INDIVIDUAL"), [formData?.ownershipCategory?.code]);
 
-  const institutionTypeMenu = useMemo(() => {
-    const code = formData?.ownershipCategory?.code;
-    const arr = mdmsData?.PropertyTax?.SubOwnerShipCategory?.filter((e) => e?.ownerShipCategory?.includes(code));
-    return arr?.map((e) => ({ ...e, i18nKey: `COMMON_MASTERS_OWNERSHIPCATEGORY_${e.code?.replaceAll(".", "_")}` }));
-  }, [mdmsData, formData?.ownershipCategory]);
+  // const institutionTypeMenu = useMemo(() => {
+  //   const code = formData?.ownershipCategory?.code;
+  //   const arr = mdmsData?.PropertyTax?.SubOwnerShipCategory?.filter((e) => e?.ownerShipCategory?.includes(code));
+  //   return arr?.map((e) => ({ ...e, i18nKey: `COMMON_MASTERS_OWNERSHIPCATEGORY_${e.code?.replaceAll(".", "_")}` }));
+  // }, [mdmsData, formData?.ownershipCategory]);
 
   useEffect(() => {
     trigger();
@@ -179,7 +175,7 @@ const [showToast, setShowToast] = useState(null);
   const [part, setPart] = React.useState({});
 
   useEffect(() => {    
-    let _ownerType = isIndividualTypeOwner ? {} : { ownerType: { code: "NONE" } };
+    let _ownerType = isIndividualTypeOwner /*? {} : { ownerType: { code: "NONE" } };*/
 
     if (!_.isEqual(part, formValue)) {
       setPart({...formValue});
@@ -195,22 +191,22 @@ const [showToast, setShowToast] = useState(null);
 
   const errorStyle = { width: "70%", marginLeft: "30%", fontSize: "12px", marginTop: "-21px" };
 
-  useEffect(() => {
-    const getData = setTimeout(async () => {
-      const propertyDetails = await Digit.PTService.search({ tenantId, filters: { documentNumbers: uuid } });
-      if (propertyDetails?.Properties.length > 0) {
-        setShowToast({
-          error: true,label: `Please enter a valid document number`
-        })
-      }
-      else {
-        setShowToast({
-          label: `Valid document number`
-        })
-      }
-    }, 1000)
-    return () => clearTimeout(getData)
-  }, [uuid])
+  // useEffect(() => {
+  //   const getData = setTimeout(async () => {
+  //     const propertyDetails = await Digit.PTService.search({ tenantId, filters: { documentNumbers: uuid } });
+  //     if (propertyDetails?.Properties.length > 0) {
+  //       setShowToast({
+  //         error: true,label: `Please enter a valid document number`
+  //       })
+  //     }
+  //     else {
+  //       setShowToast({
+  //         label: `Valid document number`
+  //       })
+  //     }
+  //   }, 1000)
+  //   return () => clearTimeout(getData)
+  // }, [uuid])
 
 
   return (
@@ -246,7 +242,7 @@ const [showToast, setShowToast] = useState(null);
                 render={(props) => (
                   <TextInput
                     value={props.value}
-                    disable={isEditScreen}
+                   // disable={isEditScreen}
                     autoFocus={focusIndex.index === owner?.key && focusIndex.type === "name"}
                     onChange={(e) => {
                       props.onChange(e.target.value);
@@ -274,7 +270,7 @@ const [showToast, setShowToast] = useState(null);
                       className="form-field"
                       selected={props.value}
                       select={props.onChange}
-                      disable={isEditScreen}
+                     // disable={isEditScreen}
                       onBlur={props.onBlur}
                       /*option={[
                         { i18nKey: "PT_FORM3_MALE", code: "Male" },
@@ -305,7 +301,7 @@ const [showToast, setShowToast] = useState(null);
                 render={(props) => (
                   <TextInput
                     value={props.value}
-                    disable={isEditScreen}
+                   // disable={isEditScreen}
                     autoFocus={focusIndex.index === owner?.key && focusIndex.type === "fatherOrHusbandName"}
                     onChange={(e) => {
                       props.onChange(e.target.value);
@@ -339,7 +335,7 @@ const [showToast, setShowToast] = useState(null);
                 render={(props) => (
                   <TextInput
                     value={props.value}
-                    disable={isEditScreen}
+                   // disable={isEditScreen}
                     maxLength={12}
                     autoFocus={focusIndex.index === owner?.key && focusIndex.type === "adharNumber"}
                     onChange={(e) => {
@@ -372,7 +368,7 @@ const [showToast, setShowToast] = useState(null);
                 render={(props) => (
                   <MobileNumber
                     value={props.value}
-                    disable={isEditScreen}
+                   // disable={isEditScreen}
                     autoFocus={focusIndex.index === owner?.key && focusIndex.type === "mobileNumber"}
                     onChange={(e) => {
                       props.onChange(e);
@@ -400,7 +396,7 @@ const [showToast, setShowToast] = useState(null);
                 render={(props) => (
                   <TextInput
                     value={props.value}
-                    disable={isEditScreen}
+                   // disable={isEditScreen}
                     autoFocus={focusIndex.index === owner?.key && focusIndex.type === "emailId"}
                     onChange={(e) => {
                       props.onChange(e);
@@ -415,35 +411,6 @@ const [showToast, setShowToast] = useState(null);
           </LabelFieldPair>
           <CardLabelError style={errorStyle}>{localFormState.touched.emailId ? errors?.emailId?.message : ""}</CardLabelError>
 
-          
-          
-
-          {/* <LabelFieldPair>
-            <CardLabel className="card-label-smaller">{t("PT_OWNERSHIP_INFO_CORR_ADDR") + (isIndividualTypeOwner ? "" : " *")}</CardLabel>
-            <div className="field">
-              <Controller
-                control={control}
-                name={"correspondenceAddress"}
-                defaultValue={owner?.correspondenceAddress}
-                rules={isIndividualTypeOwner ? {} : { required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
-                render={(props) => (
-                  <TextInput
-                    value={props.value}
-                    disable={isEditScreen}
-                    autoFocus={focusIndex.index === owner?.key && focusIndex.type === "correspondenceAddress"}
-                    onChange={(e) => {
-                      props.onChange(e);
-                      setFocusIndex({ index: owner.key, type: "correspondenceAddress" });
-                    }}
-                    onBlur={props.onBlur}
-                  />
-                )}
-              />
-            </div>
-          </LabelFieldPair>
-          <CardLabelError style={errorStyle}>
-            {localFormState.touched.correspondenceAddress ? errors?.correspondenceAddress?.message : ""}
-          </CardLabelError> */}
         </div>
       </div>
       {showToast?.label && (

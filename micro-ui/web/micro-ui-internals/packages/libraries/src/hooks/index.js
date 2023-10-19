@@ -89,6 +89,8 @@ import useAdvanceBalanceCalulation from "./fsm/useAdvanceBalanceCalculation";
 
 import useEmployeeSearch from "./useEmployeeSearch";
 
+import usePetMDMS from "./ptr/usePetMDMS";
+
 import usePropertyMDMS from "./pt/usePropertyMDMS";
 import usePropertyAPI from "./pt/usePropertyAPI";
 import usePropertyCreateNUpdateAPI from "./pt/usePropertyCreateNUpdateAPI";
@@ -307,6 +309,11 @@ const fsm = {
   useVehicleTripCreate,
   useVendorSearch,
   useAdvanceBalanceCalulation,
+};
+
+const ptr = {
+  usePetMDMS,
+
 };
 
 const pt = {
@@ -529,6 +536,7 @@ const Hooks = {
   pgr,
   fsm,
   pt,
+  ptr,
   dss,
   mcollect,
   hrms,

@@ -87,13 +87,13 @@ const NewApplication = () => {
           
 
         } = owner;
-        let __owner;
+       // let __owner;
 
         // if (!data?.ownershipCategory?.code.includes("INDIVIDUAL")) {
         //   __owner = { name, mobileNumber, emailId, adharNumber , fatherOrHusbandName /*ownerType**/ };
         // } else {
           
-          __owner = {
+          let __owner = {
             name,
             mobileNumber,
             adharNumber,
@@ -103,6 +103,8 @@ const NewApplication = () => {
             emailId,    
                                   
           };
+        return __owner;
+      }),
         
         //}
         //if (!__owner?.correspondenceAddress) __owner.correspondenceAddress = "";
@@ -120,8 +122,8 @@ const NewApplication = () => {
         // } else {
         //   _owner.documents = [data?.documents?.documents?.find((e) => e.documentType?.includes("OWNER.IDENTITYPROOF"))];
         // }
-        // return _owner;
-      }),
+        
+      
 
       pet: data?.pet.map((pets) => {
         let {
@@ -136,10 +138,10 @@ const NewApplication = () => {
           sex,        
 
         } = pets;
-        let __pets;
+        
 
         
-          __pets = {
+        let __pets = {
             
           doctorName,
           datee,
@@ -151,7 +153,9 @@ const NewApplication = () => {
           petname,
           sex,     
                                   
-          };
+        };
+
+        return  __pets;
        
       }),
 
@@ -159,7 +163,7 @@ const NewApplication = () => {
         let {
           houseNo,
           houseName,
-          houseType,
+          //houseType,
           addressLinefirst,
           addressLinesecond,
           streetName,
@@ -169,14 +173,14 @@ const NewApplication = () => {
           pincode,      
 
         } = pata;
-        let __pata;
+        
 
         
-          __pata = {
+        let __pata = {
             
             houseNo,
             houseName,
-            houseType,
+            //houseType,
             addressLinefirst,
             addressLinesecond,
             streetName,
@@ -186,8 +190,33 @@ const NewApplication = () => {
             pincode,   
                                   
           };
+        return __pata
       
       }),
+
+      // documents: data?.documents.map((doc) => {
+      //   let {
+      //     adharCard,
+      //     userPicture,
+      //     petPicture,
+      //     vaccineCertificate,       
+
+      //   } = doc;
+        
+
+        
+      //   let __doc = {
+            
+      //       adharCard,
+      //       userPicture,
+      //       petPicture,
+      //       vaccineCertificate,  
+                                  
+      //     };
+      //   return __doc;
+       
+      // }),
+
       
 
       channel: "CFC_COUNTER", // required
@@ -237,8 +266,8 @@ console.log("vvX",configs)
       config={filterproperty.map((config) => {
         console.log("jjjjjjjjjjjj",config)
         return {
-          
-          configs,
+          key: `whysssssss`,       //passed the unique key 
+          ...config,
           body: config.body.filter((a) => !a.hideInEmployee),
         };
       })}

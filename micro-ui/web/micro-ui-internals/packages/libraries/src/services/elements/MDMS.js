@@ -446,6 +446,24 @@ const getDocumentRequiredScreenCategory = (tenantId, moduleCode) => ({
   },
 });
 
+// ********************#####################----------------------------//
+const getDocumentsRequiredScreenCategory = (tenantId, moduleCode) => ({
+  details: {
+    tenantId: tenantId,
+    moduleDetails: [
+      {
+        moduleName: moduleCode,
+        masterDetails: [
+          {
+            name: "PetDocuments",
+          },
+        ],
+      },
+    ],
+  },
+});
+//************************#####################---------------------******************************//
+
 const getDefaultMapConfig = (tenantId, moduleCode) => ({
   details: {
     tenantId: tenantId,
@@ -1098,6 +1116,17 @@ const getDocumentRequiredScreen = (MdmsRes) => {
   });
 };
 
+//##############################################
+const getDocumentsRequiredScreen = (MdmsRes) => {
+  MdmsRes["PetService"].PetDocuments.filter((PetDocuments) => PetDocuments.active).map((dropdownData) => {
+    return {
+      ...PetDocuments,
+      i18nKey: `${dropdownData.code}`,
+    };
+  });
+};
+//######################
+
 const getTLDocumentRequiredScreen = (MdmsRes) => {
   MdmsRes["TradeLicense"].Documents.filter((Documents) => Documents.active).map((dropdownData) => {
     return {
@@ -1341,6 +1370,11 @@ const transformResponse = (type, MdmsRes, moduleCode, tenantId) => {
       return getSubPropertyOwnerShipCategory(MdmsRes);
     case "Documents":
       return getDocumentRequiredScreen(MdmsRes);
+
+      //############ //////////////////********************** */
+    case "PetDocuments":
+    return getDocumentsRequiredScreen(MdmsRes);
+    //********************************************** */
     case "TLDocuments":
       return getTLDocumentRequiredScreen(MdmsRes);
     case "MapConfig":
@@ -1576,6 +1610,11 @@ export const MdmsService = {
   getDocumentRequiredScreen: (tenantId, moduleCode) => {
     return MdmsService.getDataByCriteria(tenantId, getDocumentRequiredScreenCategory(tenantId, moduleCode), moduleCode);
   },
+  // -------------PET -----------------//
+  getDocumentsRequiredScreen: (tenantId, moduleCode) => {
+    return MdmsService.getDataByCriteria(tenantId, getDocumentsRequiredScreenCategory(tenantId, moduleCode), moduleCode);
+  },
+  //--------------PET-----------------//
   getTLDocumentRequiredScreen: (tenantId, moduleCode) => {
     return MdmsService.getDataByCriteria(tenantId, getDocumentRequiredScreenCategory(tenantId, moduleCode), moduleCode);
   },

@@ -36,22 +36,22 @@ import {
     const { t } = useTranslation();
   
     const { pathname } = useLocation();
-    const isEditScreen = pathname.includes("/modify-application/");
+    //const isEditScreen = pathname.includes("/modify-application/");
     const [address, setAddress] = useState(formData?.address || [createAddressDetails()]);
     const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
   
     const tenantId = Digit.ULBService.getCurrentTenantId();
     const stateId = Digit.ULBService.getStateId();
-    const { data: mdmsData, isLoading } = Digit.Hooks.pt.usePropertyMDMS(stateId, "PropertyTax", [
-      // "UsageCategory",
-      // "OccupancyType",
-      //"Floor",
-      "OwnerType",
-      //"OwnerShipCategory",
-      // "Documents",
-      // "SubOwnerShipCategory",
-      // "OwnerShipCategory",
-    ]);
+    // const { data: mdmsData, isLoading } = Digit.Hooks.pt.usePropertyMDMS(stateId, "PropertyTax", [
+    //   // "UsageCategory",
+    //   // "OccupancyType",
+    //   //"Floor",
+    //   "OwnerType",
+    //   //"OwnerShipCategory",
+    //   // "Documents",
+    //   // "SubOwnerShipCategory",
+    //   // "OwnerShipCategory",
+    // ]);
   
     const { data: Menu } = Digit.Hooks.pt.usePTGenderMDMS(stateId, "common-masters", "GenderType");
   console.log("address",address)
@@ -83,13 +83,13 @@ import {
       formData,
       formState,
       setAddress,
-      mdmsData,
+      //mdmsData,
       t,
       setError,
       clearErrors,
       config,
       menu,
-      isEditScreen,
+      //isEditScreen,
     };
   
     return  (
@@ -112,18 +112,18 @@ import {
       //removeOwner,
       setAddress,
       t,
-      mdmsData,
+      //mdmsData,
       formData,
       config,
       setError,
       clearErrors,
       formState,
       menu,
-      isEditScreen,
+      //isEditScreen,
     } = _props;
-    const { originalData = {} } = formData;
-    const { institution = {} } = originalData;
-    const [uuid, setUuid] = useState(null);
+    // const { originalData = {} } = formData;
+    // const { institution = {} } = originalData;
+    // const [uuid, setUuid] = useState(null);
     const [showToast, setShowToast] = useState(null);
     const {
       control,
@@ -146,7 +146,7 @@ import {
     const [part, setPart] = React.useState({});
   
     useEffect(() => {
-      let _ownerType = isIndividualTypeOwner ? {} : { ownerType: { code: "NONE" } };
+      let _ownerType = isIndividualTypeOwner /*? {} : { ownerType: { code: "NONE" } };*/
   
       if (!_.isEqual(part, formValue)) {
         setPart({ ...formValue });
@@ -192,7 +192,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     //// disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "houseNo"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -223,7 +223,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     //// disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "houseName"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -254,7 +254,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     //// disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "houseType"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -288,7 +288,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     //// disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "addressLinefirst"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -317,7 +317,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     // disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "addressLinesecond"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -347,7 +347,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     // disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "streetName"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -377,7 +377,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     // disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "landmark"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -407,7 +407,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     // disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "locality"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -437,7 +437,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     // disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "cityName"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
@@ -468,7 +468,7 @@ import {
                   render={(props) => (
                     <TextInput
                       value={props.value}
-                      disable={isEditScreen}
+                     // disable={isEditScreen}
                       autoFocus={focusIndex.index === pata?.key && focusIndex.type === "pincode"}
                       onChange={(e) => {
                         props.onChange(e.target.value);
