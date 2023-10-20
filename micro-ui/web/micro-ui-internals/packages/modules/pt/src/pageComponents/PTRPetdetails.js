@@ -40,24 +40,14 @@ const PTRPetdetails = ({ config, onSelect, userType, formData, setError, formSta
 
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const stateId = Digit.ULBService.getStateId();
-  // const { data: mdmsData, isLoading } = Digit.Hooks.pt.usePropertyMDMS(stateId, "PropertyTax", [
-  //   // "UsageCategory",
-  //   // "OccupancyType",
-  //   //"Floor",
-  //   "OwnerType",
-  //   //"OwnerShipCategory",
-  //   // "Documents",
-  //   // "SubOwnerShipCategory",
-  //   // "OwnerShipCategory",
-  // ]);
+  
+  const { data: Menu } = Digit.Hooks.ptr.usePTRPetMDMS(stateId, "PetService", "PetType");
 
-  const { data: Menu } = Digit.Hooks.pt.usePTGenderMDMS(stateId, "common-masters", "GenderType");
-console.log("PET",pet)
   let menu = [];
 
   Menu &&
-    Menu.map((formGender) => {
-      menu.push({ i18nKey: `PT_FORM3_${formGender.code}`, code: `${formGender.code}`, value: `${formGender.code}` });
+    Menu.map((petone) => {
+      menu.push({ i18nKey: `PTR_FORM3_${petone.code}`, code: `${petone.code}`, value: `${petone.code}` });
     });
 
   // const addNewOwner = () => {
@@ -180,13 +170,14 @@ const OwnerForm = (_props) => {
                   selected={props.value}
                   select={props.onChange}
                   onBlur={props.onBlur}
-                 // disable={isEditScreen}
-                  option={[
-                    // { i18nKey: "PT_FORM3_FATHER", code: "FATHER" },
-                    // { i18nKey: "PT_FORM3_HUSBAND", code: "HUSBAND" },
-                    { i18nKey: "PTR_DOG", code: "DOG" }, // set the location accordingly
-                    { i18nKey: "PTR_CAT", code: "CAT" },
-                  ]}
+                 
+                  // option={[
+                  //   // { i18nKey: "PT_FORM3_FATHER", code: "FATHER" },
+                  //   // { i18nKey: "PT_FORM3_HUSBAND", code: "HUSBAND" },
+                  //   { i18nKey: "PTR_DOG", code: "DOG" }, // set the location accordingly
+                  //   { i18nKey: "PTR_CAT", code: "CAT" },
+                  // ]}
+                  option={menu}
                   optionKey="i18nKey"
                   t={t}
                 />

@@ -90,6 +90,7 @@ import useAdvanceBalanceCalulation from "./fsm/useAdvanceBalanceCalculation";
 import useEmployeeSearch from "./useEmployeeSearch";
 
 import usePetMDMS from "./ptr/usePetMDMS";
+import usePTRPetMDMS from "./ptr/usePTRPetMDMS";
 
 import usePropertyMDMS from "./pt/usePropertyMDMS";
 import usePropertyAPI from "./pt/usePropertyAPI";
@@ -313,6 +314,7 @@ const fsm = {
 
 const ptr = {
   usePetMDMS,
+  usePTRPetMDMS,
 
 };
 

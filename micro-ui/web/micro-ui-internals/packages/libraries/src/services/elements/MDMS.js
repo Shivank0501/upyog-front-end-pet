@@ -656,6 +656,25 @@ const getGenderTypeList = (tenantId, moduleCode, type) => ({
   },
 });
 
+////////////////////////////
+const getPetTypeList = (tenantId, moduleCode, type) => ({
+  type,
+  details: {
+    tenantId,
+    moduleDetails: [
+      {
+        moduleName: moduleCode,
+        masterDetails: [
+          {
+            name: "PetType",
+          },
+        ],
+      },
+    ],
+  },
+});
+////////////////
+
 const getMeterStatusTypeList = (tenantId) => ({
     moduleDetails: [
       {
@@ -1231,6 +1250,16 @@ const getGenderType = (MdmsRes) => {
   });
   //return MdmsRes;
 };
+//////////////
+const getPetType = (MdmsRes) => {
+  return MdmsRes["PetService"].PetType.filter((PetType) => PetType.active).map((petDetails) => {
+    return {
+      ...petDetails,
+      i18nKey: `PTR_PET_TYPE_${petDetails.code}`,
+    };
+  });
+  //return MdmsRes;
+};
 
 const TLGenderType = (MdmsRes) => {
   MdmsRes["common-masters"].GenderType.filter((GenderType) => GenderType.active).map((genders) => {
@@ -1249,6 +1278,16 @@ const PTGenderType = (MdmsRes) => {
     };
   });
 };
+/////////////////////
+const PTRPetType = (MdmsRes) => {
+  MdmsRes["PetService"].PetType.filter((PetType) => PetType.active).map((petone) => {
+    return {
+      ...petone,
+      i18nKey: `PTR_FORM3_${petone.code}`,
+    };
+  });
+};
+/////////////////////
 
 const HRGenderType = (MdmsRes) => {
   MdmsRes["common-masters"].GenderType.filter((GenderType) => GenderType.active).map((comGender) => {
@@ -1415,10 +1454,19 @@ const transformResponse = (type, MdmsRes, moduleCode, tenantId) => {
       return GetFSTPPlantInfo(MdmsRes);
     case "GenderType":
       return getGenderType(MdmsRes);
+      /////////////
+      case "PetType":
+      return getPetType(MdmsRes);
+      ////////////
     case "TLGendertype":
       return TLGenderType(MdmsRes);
     case "PTGenderType":
       return PTGenderType(MdmsRes);
+
+      /////////
+    case "PTRPetType":
+    return PTRPetType(MdmsRes);
+      ////////
     case "HRGenderType":
       return HRGenderType(MdmsRes);
     case "DocumentTypes":
@@ -1698,6 +1746,12 @@ export const MdmsService = {
     return MdmsService.getDataByCriteria(tenantId, getGenderTypeList(tenantId, moduleCode, type), moduleCode);
   },
 
+  ///////
+  getPetType: (tenantId, moduleCode, type) => {
+    return MdmsService.getDataByCriteria(tenantId, getPetTypeList(tenantId, moduleCode, type), moduleCode);
+  },
+  ///////
+
   TLGenderType: (tenantId, moduleCode, type) => {
     return MdmsService.getDataByCriteria(tenantId, getGenderTypeList(tenantId, moduleCode, type), moduleCode);
   },
@@ -1705,6 +1759,11 @@ export const MdmsService = {
   PTGenderType: (tenantId, moduleCode, type) => {
     return MdmsService.getDataByCriteria(tenantId, getGenderTypeList(tenantId, moduleCode, type), moduleCode);
   },
+  ////////////////////****************************************** */
+  PTRPetType: (tenantId, moduleCode, type) => {
+    return MdmsService.getDataByCriteria(tenantId, getPetTypeList(tenantId, moduleCode, type), moduleCode);
+  },
+  /////////////////////###################################
 
   HRGenderType: (tenantId, moduleCode, type) => {
     return MdmsService.getDataByCriteria(tenantId, getGenderTypeList(tenantId, moduleCode, type), moduleCode);
